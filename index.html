@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TREP DAWOUD - اصعد إلى القمة مع خبراء الجبال</title>
+    <meta name="description" content="منصة TREP DAWOUD لتسلق الجبال - دورات تعليمية، مدونة، وخدمات شركة متخصصة في عالم المغامرات الجبلية">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E8B57;
+            --secondary: #87CEEB;
+            --tertiary: #8B4513;
+            --white: #FFFFFF;
+            --black: #2F4F4F;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background: linear-gradient(135deg, var(--white) 0%, var(--secondary) 100%);
+        }
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1464822759844-d150f39b8b3b?w=1920&h=1080&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin: 0 1rem;
+        }
+        .btn:hover {
+            background: var(--tertiary);
+            transform: translateY(-2px);
+        }
+        .search-bar {
+            background: rgba(255,255,255,0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem auto;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 4rem 2rem;
+            background: var(--white);
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+        .featured-mountains {
+            padding: 4rem 2rem;
+            background: var(--secondary);
+        }
+        .mountain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .mountain-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .mountain-card:hover {
+            transform: translateY(-10px);
+        }
+        .mountain-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .mountain-card-content {
+            padding: 1.5rem;
+        }
+        .blog-preview {
+            padding: 4rem 2rem;
+            background: var(--white);
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .blog-card-content {
+            padding: 1.5rem;
+        }
+        .testimonials {
+            padding: 4rem 2rem;
+            background: var(--tertiary);
+            color: white;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .newsletter {
+            padding: 4rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        .newsletter input {
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            margin-right: 1rem;
+            width: 300px;
+        }
+        footer {
+            background: var(--black);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            .stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header style="background: var(--black); color: white; padding: 1rem; position: fixed; width: 100%; z-index: 1000;">
+        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <h2 style="color: var(--primary);">TREP DAWOUD</h2>
+            </div>
+            <ul style="list-style: none; display: flex; gap: 2rem;">
+                <li><a href="#home" style="color: white; text-decoration: none;">الرئيسية</a></li>
+                <li><a href="mountains.html" style="color: white; text-decoration: none;">الجبال</a></li>
+                <li><a href="blog.html" style="color: white; text-decoration: none;">المدونة</a></li>
+                <li><a href="courses.html" style="color: white; text-decoration: none;">الدورات</a></li>
+                <li><a href="services.html" style="color: white; text-decoration: none;">الخدمات</a></li>
+                <li><a href="question.html" style="color: white; text-decoration: none;">الأسئلة</a></li>
+                <li><a href="blog.html" style="color: white; text-decoration: none;">المدونة</a></li>
+                <li><a href="login.html" style="color: white; text-decoration: none;">تسجيل الدخول</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>TREP DAWOUD</h1>
+            <p>اصعد إلى القمة مع خبراء الجبال</p>
+            <div class="search-bar">
+                <input type="text" placeholder="ابحث عن جبل...">
+                <button class="btn" style="margin-top: 1rem;">بحث</button>
+            </div>
+            <a href="mountains.html" class="btn">استكشف الجبال</a>
+            <a href="courses.html" class="btn">ابدأ التعلم</a>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stat-item">
+            <h3>1000+</h3>
+            <p>جبل في قاعدة البيانات</p>
+        </div>
+        <div class="stat-item">
+            <h3>5000+</h3>
+            <p>متسلق مسجل</p>
+        </div>
+        <div class="stat-item">
+            <h3>200+</h3>
+            <p>دورة تعليمية</p>
+        </div>
+        <div class="stat-item">
+            <h3>50+</h3>
+            <p>رحلة منظمة</p>
+        </div>
+    </section>
+
+    <section class="featured-mountains">
+        <h2 style="text-align: center; margin-bottom: 3rem; color: var(--black);">الجبال المميزة</h2>
+        <div class="mountain-grid">
+            <div class="mountain-card">
+                <img src="https://images.unsplash.com/photo-1464822759844-d150f39b8b3b?w=400&h=200&fit=crop" alt="Mount Everest">
+                <div class="mountain-card-content">
+                    <h3>إيفرست</h3>
+                    <p>أعلى جبل في العالم - 8848 متر</p>
+                    <p>الصعوبة: محترف</p>
+                </div>
+            </div>
+            <div class="mountain-card">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop" alt="K2">
+                <div class="mountain-card-content">
+                    <h3>K2</h3>
+                    <p>ثاني أعلى جبل - 8611 متر</p>
+                    <p>الصعوبة: محترف</p>
+                </div>
+            </div>
+            <div class="mountain-card">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=200&fit=crop" alt="Kangchenjunga">
+                <div class="mountain-card-content">
+                    <h3>كانغشينجونغا</h3>
+                    <p>ثالث أعلى جبل - 8586 متر</p>
+                    <p>الصعوبة: متقدم</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-preview">
+        <h2 style="text-align: center; margin-bottom: 3rem; color: var(--black);">أحدث المقالات</h2>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1464207687429-7505649dae38?w=400&h=200&fit=crop" alt="Climbing Article">
+                <div class="blog-card-content">
+                    <h3>أساسيات تسلق الجبال للمبتدئين</h3>
+                    <p>دليل شامل للبدء في رياضة تسلق الجبال بأمان...</p>
+                    <small>منذ 3 أيام</small>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=200&fit=crop" alt="Equipment Review">
+                <div class="blog-card-content">
+                    <h3>مراجعة أفضل معدات التسلق 2024</h3>
+                    <p>أحدث المعدات والتقنيات في عالم تسلق الجبال...</p>
+                    <small>منذ أسبوع</small>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop" alt="Adventure Story">
+                <div class="blog-card-content">
+                    <h3>قصة تسلق قمة K2</h3>
+                    <p>رحلة مثيرة مليئة بالتحديات والإنجازات...</p>
+                    <small>منذ أسبوعين</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 style="text-align: center; margin-bottom: 3rem;">آراء المتسلقين</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p>"منصة TREP DAWOUD غيرت مفهومي لتسلق الجبال. الدورات ممتازة والمعلومات شاملة."</p>
+                <cite>- أحمد محمد، متسلق محترف</cite>
+            </div>
+            <div class="testimonial-card">
+                <p>"اكتشفت شغفي بالتسلق من خلال هذه المنصة. الدعم والمجتمع رائعان."</p>
+                <cite>- فاطمة علي، متسلقة مبتدئة</cite>
+            </div>
+            <div class="testimonial-card">
+                <p>"خدمات الشركة ممتازة. رحلات منظمة بأعلى المعايير المهنية."</p>
+                <cite>- محمد حسن، عميل شركة</cite>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <h2>اشترك في النشرة الإخبارية</h2>
+        <p>احصل على أحدث المقالات والرحلات والنصائح</p>
+        <input type="email" placeholder="أدخل بريدك الإلكتروني">
+        <button class="btn">اشتراك</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 TREP DAWOUD. جميع الحقوق محفوظة.</p>
+        <div style="margin-top: 1rem;">
+            <a href="#" style="color: white; margin: 0 1rem;">سياسة الخصوصية</a>
+            <a href="#" style="color: white; margin: 0 1rem;">الشروط والأحكام</a>
+            <a href="#" style="color: white; margin: 0 1rem;">اتصل بنا</a>
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll animation
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = 'translateY(' + scrolled * 0.5 + 'px)';
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                alert('البحث عن: ' + this.value);
+            }
+        });
+    </script>
+</body>
+</html>

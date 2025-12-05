@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - TREP DAWOUD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E8B57;
+            --secondary: #87CEEB;
+            --tertiary: #8B4513;
+            --white: #FFFFFF;
+            --black: #2F4F4F;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .logo p {
+            color: var(--black);
+            font-size: 1rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+        .remember-me input {
+            margin-left: 0.5rem;
+            width: auto;
+        }
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: var(--tertiary);
+            transform: translateY(-2px);
+        }
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            color: #666;
+        }
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e1e1e1;
+        }
+        .divider span {
+            background: white;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .social-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #e1e1e1;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+        .social-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--black);
+        }
+        .signup-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        .back-link {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .login-container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            .logo h1 {
+                font-size: 2rem;
+            }
+            .social-login {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← العودة للرئيسية</a>
+
+    <div class="login-container">
+        <div class="logo">
+            <h1>TREP DAWOUD</h1>
+            <p>مرحباً بك مرة أخرى</p>
+        </div>
+
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني أو اسم المستخدم</label>
+                <input type="text" id="email" name="email" required placeholder="أدخل بريدك الإلكتروني أو اسم المستخدم">
+            </div>
+
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" name="password" required placeholder="أدخل كلمة المرور">
+            </div>
+
+            <div class="form-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">تذكرني</label>
+                </div>
+                <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+            </div>
+
+            <button type="submit" class="btn">تسجيل الدخول</button>
+        </form>
+
+        <div class="divider">
+            <span>أو</span>
+        </div>
+
+        <div class="social-login">
+            <button class="social-btn" onclick="loginWithGoogle()">
+                <span>🔵</span>
+                جوجل
+            </button>
+            <button class="social-btn" onclick="loginWithFacebook()">
+                <span>🔵</span>
+                فيسبوك
+            </button>
+        </div>
+
+        <div class="signup-link">
+            ليس لديك حساب؟ <a href="signup.html">إنشاء حساب جديد</a>
+        </div>
+    </div>
+
+    <script>
+        // Form submission handler
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            // Clear previous messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // Basic validation
+            if (!validateLogin(data)) {
+                return;
+            }
+
+            // Simulate login process
+            showSuccessMessage('جاري تسجيل الدخول...');
+
+            // Simulate API call
+            setTimeout(() => {
+                // Mock successful login
+                if (data.email === 'demo@trepdawood.com' && data.password === 'demo123') {
+                    showSuccessMessage('تم تسجيل الدخول بنجاح! سيتم توجيهك إلى الدردشة');
+                    setTimeout(() => {
+                        window.location.href = 'chat.html';
+                    }, 1500);
+                } else {
+                    showErrorMessage('بيانات الدخول غير صحيحة. يرجى المحاولة مرة أخرى.');
+                }
+            }, 2000);
+        });
+
+        function validateLogin(data) {
+            if (!data.email || !data.password) {
+                showErrorMessage('يرجى ملء جميع الحقول المطلوبة');
+                return false;
+            }
+
+            // Basic email validation if email format
+            if (data.email.includes('@')) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(data.email)) {
+                    showErrorMessage('يرجى إدخال بريد إلكتروني صحيح');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function showErrorMessage(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+        }
+
+        function showSuccessMessage(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+        }
+
+        function loginWithGoogle() {
+            showSuccessMessage('جاري تسجيل الدخول عبر جوجل...');
+            // Simulate OAuth flow
+            setTimeout(() => {
+                showSuccessMessage('تم تسجيل الدخول بنجاح عبر جوجل!');
+                setTimeout(() => {
+                    window.location.href = 'chat.html';
+                }, 1000);
+            }, 2000);
+        }
+
+        function loginWithFacebook() {
+            showSuccessMessage('جاري تسجيل الدخول عبر فيسبوك...');
+            // Simulate OAuth flow
+            setTimeout(() => {
+                showSuccessMessage('تم تسجيل الدخول بنجاح عبر فيسبوك!');
+                setTimeout(() => {
+                    window.location.href = 'chat.html';
+                }, 1000);
+            }, 2000);
+        }
+
+        // Forgot password functionality
+        document.querySelector('.forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = prompt('أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور:');
+            if (email) {
+                showSuccessMessage('تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');
+            }
+        });
+
+        // Demo credentials hint
+        setTimeout(() => {
+            console.log('Demo credentials: demo@trepdawood.com / demo123');
+        }, 1000);
+    </script>
+</body>
+</html>

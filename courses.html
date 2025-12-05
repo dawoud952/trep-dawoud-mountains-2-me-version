@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدورات التعليمية - TREP DAWOUD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="nav-container">
+            <div class="logo">
+                <h2>TREP DAWOUD</h2>
+            </div>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="mountains.html">الجبال</a></li>
+                <li><a href="blog.html">المدونة</a></li>
+                <li><a href="courses.html" class="active">الدورات</a></li>
+                <li><a href="services.html">الخدمات</a></li>
+                <li><a href="login.html">تسجيل الدخول</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/dawoud.jpg'); height: 50vh;">
+        <div class="hero-content">
+            <h1>الدورات التعليمية</h1>
+            <p>تعلم تسلق الجبال من خبراء معتمدين في دورات تفاعلية شاملة</p>
+        </div>
+    </section>
+
+    <section class="mountains-section" style="padding-top: 4rem;">
+        <div class="mountains-container">
+            <div class="mountains-header">
+                <h2>الدورات المتاحة (<span id="coursesCount">8</span> دورة)</h2>
+                <div class="view-toggle">
+                    <button id="gridView" class="active" onclick="setView('grid')">🔳 شبكة</button>
+                    <button id="listView" onclick="setView('list')">📋 قائمة</button>
+                </div>
+            </div>
+
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Courses will be loaded here -->
+            </div>
+
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be generated here -->
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-mountains" style="background: var(--secondary);">
+        <h2 style="text-align: center; margin-bottom: 3rem; color: var(--black);">لماذا تختار دوراتنا؟</h2>
+        <div class="stats" style="max-width: 1200px; margin: 0 auto;">
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>معتمد من خبراء دوليين</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>دعم فني على مدار الساعة</p>
+            </div>
+            <div class="stat-item">
+                <h3>95%</h3>
+                <p>معدل نجاح المتعلمين</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>مدرب معتمد</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 TREP DAWOUD. جميع الحقوق محفوظة.</p>
+        <div style="margin-top: 1rem;">
+            <a href="#" style="color: white; margin: 0 1rem;">سياسة الخصوصية</a>
+            <a href="#" style="color: white; margin: 0 1rem;">الشروط والأحكام</a>
+            <a href="#" style="color: white; margin: 0 1rem;">اتصل بنا</a>
+        </div>
+    </footer>
+
+    <!-- Course Detail Modal -->
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="courseDetail">
+                <!-- Course detail content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample courses data
+        const courses = [
+            {
+                id: 1,
+                title: "أساسيات تسلق الجبال",
+                instructor: "أحمد محمد",
+                level: "مبتدئ",
+                duration: "4 أسابيع",
+                price: 299,
+                image: "https://images.unsplash.com/photo-1464207687429-7505649dae38?w=400&h=200&fit=crop",
+                description: "دورة شاملة للمبتدئين في تسلق الجبال تغطي جميع الأساسيات من السلامة إلى التقنيات الأساسية.",
+                syllabus: [
+                    "مقدمة في تسلق الجبال",
+                    "المعدات الأساسية والسلامة",
+                    "التنقل في التضاريس المختلفة",
+                    "إقامة المخيمات والتخييم",
+                    "الطقس وقراءة الخرائط",
+                    "الإسعافات الأولية في الجبال"
+                ],
+                enrolled: 245,
+                rating: 4.8,
+                reviews: 89
+            },
+            {
+                id: 2,
+                title: "تقنيات التسلق المتقدمة",
+                instructor: "فاطمة سالم",
+                level: "متوسط",
+                duration: "6 أسابيع",
+                price: 499,
+                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop",
+                description: "دورة متخصصة للمتسلقين ذوي الخبرة المتوسطة تركز على التقنيات المتقدمة والتحديات الأكبر.",
+                syllabus: [
+                    "التسلق الجليدي والثلجي",
+                    "التعامل مع الشقوق والانهيارات",
+                    "التنقل في الظروف الجوية القاسية",
+                    "إدارة المخاطر المتقدمة",
+                    "الإنقاذ والمساعدة في الجبال",
+                    "التخطيط للرحلات الطويلة"
+                ],
+                enrolled: 156,
+                rating: 4.9,
+                reviews: 67
+            },
+            {
+                id: 3,
+                title: "السلامة والإسعافات الأولية",
+                instructor: "د. محمد حسن",
+                level: "جميع المستويات",
+                duration: "3 أسابيع",
+                price: 199,
+                image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=200&fit=crop",
+                description: "دورة حيوية تركز على السلامة والإسعافات الأولية في البيئة الجبلية.",
+                syllabus: [
+                    "مبادئ السلامة في الجبال",
+                    "الإصابات الشائعة والتعامل معها",
+                    "الإسعافات الأولية المتقدمة",
+                    "إدارة الحالات الطارئة",
+                    "الإنقاذ والإخلاء الطبي",
+                    "الوقاية من الحوادث"
+                ],
+                enrolled: 312,
+                rating: 4.7,
+                reviews: 134
+            },
+            {
+                id: 4,
+                title: "التنقل والخرائط الجبلية",
+                instructor: "علي عبدالله",
+                level: "مبتدئ",
+                duration: "2 أسابيع",
+                price: 149,
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=200&fit=crop",
+                description: "تعلم قراءة الخرائط واستخدام أجهزة GPS والتنقل الآمن في التضاريس الجبلية.",
+                syllabus: [
+                    "أساسيات قراءة الخرائط",
+                    "استخدام البوصلة والGPS",
+                    "تحديد المواقع والارتفاعات",
+                    "التخطيط للمسارات",
+                    "التنقل في الضباب والليل",
+                    "تجنب الضياع والتائهين"
+                ],
+                enrolled: 198,
+                rating: 4.6,
+                reviews: 78
+            },
+            {
+                id: 5,
+                title: "إدارة المخاطر في التسلق",
+                instructor: "سارة أحمد",
+                level: "متقدم",
+                duration: "4 أسابيع",
+                price: 399,
+                image: "https://images.unsplash.com/photo-1464822759844-d150f39b8b3b?w=400&h=200&fit=crop",
+                description: "دورة متخصصة في تقييم وإدارة المخاطر في بيئة التسلق الجبلي.",
+                syllabus: [
+                    "تقييم المخاطر الأساسي",
+                    "تحليل الظروف البيئية",
+                    "إدارة المخاطر الجماعية",
+                    "اتخاذ القرارات في الظروف الصعبة",
+                    "خطط الطوارئ والانسحاب",
+                    "دراسات حالة للحوادث"
+                ],
+                enrolled: 87,
+                rating: 4.9,
+                reviews: 45
+            },
+            {
+                id: 6,
+                title: "التدريب البدني للمتسلقين",
+                instructor: "مدرب فيتنس متخصص",
+                level: "جميع المستويات",
+                duration: "8 أسابيع",
+                price: 349,
+                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop",
+                description: "برنامج تدريب بدني شامل مصمم خصيصاً لمتسلقي الجبال.",
+                syllabus: [
+                    "تقييم اللياقة البدنية الأساسي",
+                    "تمارين القوة والتحمل",
+                    "تطوير التوازن والتناسق",
+                    "تمارين القلب والأوعية الدموية",
+                    "الإحماء والتبريد السليم",
+                    "التغذية الرياضية المناسبة"
+                ],
+                enrolled: 267,
+                rating: 4.8,
+                reviews: 112
+            },
+            {
+                id: 7,
+                title: "التصوير الفوتوغرافي في الجبال",
+                instructor: "مصور جبال محترف",
+                level: "مبتدئ",
+                duration: "3 أسابيع",
+                price: 249,
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=200&fit=crop",
+                description: "تعلم التصوير الفوتوغرافي المهني في البيئة الجبلية القاسية.",
+                syllabus: [
+                    "أساسيات التصوير في الجبال",
+                    "اختيار المعدات المناسبة",
+                    "التصوير في الظروف الجوية المختلفة",
+                    "تقنيات الإضاءة الطبيعية",
+                    "تحرير الصور الجبلية",
+                    "حماية المعدات في الجبال"
+                ],
+                enrolled: 134,
+                rating: 4.5,
+                reviews: 56
+            },
+            {
+                id: 8,
+                title: "التخييم والعيش في الجبال",
+                instructor: "خبير تخييم جبلي",
+                level: "مبتدئ",
+                duration: "2 أسابيع",
+                price: 179,
+                image: "https://images.unsplash.com/photo-1464207687429-7505649dae38?w=400&h=200&fit=crop",
+                description: "تعلم فن التخييم الآمن والمريح في البيئة الجبلية.",
+                syllabus: [
+                    "اختيار موقع التخييم",
+                    "إقامة الخيمة بأمان",
+                    "إدارة الطعام والماء",
+                    "الحفاظ على النظافة في الجبال",
+                    "الحماية من الحيوانات البرية",
+                    "التعامل مع الطقس المفاجئ"
+                ],
+                enrolled: 223,
+                rating: 4.7,
+                reviews: 98
+            }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 8;
+        let filteredCourses = [...courses];
+
+        // Load courses on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCourses();
+            setupPagination();
+        });
+
+        function loadCourses() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const coursesToShow = filteredCourses.slice(startIndex, endIndex);
+
+            const coursesGrid = document.getElementById('coursesGrid');
+            coursesGrid.innerHTML = '';
+
+            coursesToShow.forEach(course => {
+                const courseElement = createCourseElement(course);
+                coursesGrid.appendChild(courseElement);
+            });
+
+            document.getElementById('coursesCount').textContent = filteredCourses.length;
+        }
+
+        function createCourseElement(course) {
+            const courseDiv = document.createElement('div');
+            courseDiv.className = 'course-card';
+            courseDiv.innerHTML = `
+                <img src="${course.image}" alt="${course.title}">
+                <div class="course-card-content">
+                    <h3>${course.title}</h3>
+                    <p><strong>المدرب:</strong> ${course.instructor}</p>
+                    <p><strong>المستوى:</strong> ${course.level}</p>
+                    <p><strong>المدة:</strong> ${course.duration}</p>
+                    <p><strong>السعر:</strong> ${course.price} ريال</p>
+                    <div style="display: flex; justify-content: space-between; margin: 1rem 0;">
+                        <span>⭐ ${course.rating} (${course.reviews} تقييم)</span>
+                        <span>👥 ${course.enrolled} مسجل</span>
+                    </div>
+                    <div class="mountain-actions">
+                        <button class="btn" onclick="viewCourse(${course.id})">عرض التفاصيل</button>
+                        <button class="btn" onclick="enrollCourse(${course.id})">التسجيل في الدورة</button>
+                    </div>
+                </div>
+            `;
+
+            return courseDiv;
+        }
+
+        function viewCourse(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (course) {
+                const modal = document.getElementById('courseModal');
+                const detail = document.getElementById('courseDetail');
+
+                detail.innerHTML = `
+                    <div class="mountain-detail">
+                        <img src="${course.image}" alt="${course.title}">
+                        <h2>${course.title}</h2>
+                        <p><strong>المدرب:</strong> ${course.instructor}</p>
+                        <p><strong>المستوى:</strong> ${course.level}</p>
+                        <p><strong>المدة:</strong> ${course.duration}</p>
+                        <p><strong>السعر:</strong> ${course.price} ريال</p>
+                        <p><strong>التقييم:</strong> ⭐ ${course.rating} (${course.reviews} تقييم)</p>
+                        <p><strong>عدد المسجلين:</strong> ${course.enrolled} متعلم</p>
+
+                        <h3>وصف الدورة</h3>
+                        <p>${course.description}</p>
+
+                        <h3>محتوى الدورة</h3>
+                        <ul>
+                            ${course.syllabus.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+
+                        <h3>ما ستتعلمه</h3>
+                        <p>بعد إتمام هذه الدورة ستكون قادراً على:</p>
+                        <ul>
+                            <li>فهم أساسيات التسلق الآمن</li>
+                            <li>استخدام المعدات بشكل صحيح</li>
+                            <li>تقييم المخاطر واتخاذ القرارات</li>
+                            <li>المساعدة في حالات الطوارئ</li>
+                            <li>التخطيط لرحلات التسلق بثقة</li>
+                        </ul>
+
+                        <div class="mountain-actions" style="margin-top: 2rem;">
+                            <button class="btn" onclick="enrollCourse(${course.id})">التسجيل في الدورة</button>
+                            <a href="https://example.com/course-${course.id}" class="btn" target="_blank">ابدأ التعلم الآن</a>
+                        </div>
+                    </div>
+                `;
+
+                modal.style.display = 'block';
+            }
+        }
+
+        function enrollCourse(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (course) {
+                alert(`تم تسجيلك في دورة "${course.title}"!\nسيتم توجيهك إلى منصة التعلم قريباً.`);
+                // Here you would typically redirect to the learning platform
+                window.open(`https://example.com/enroll/${course.id}`, '_blank');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('courseModal').style.display = 'none';
+        }
+
+        function setupPagination() {
+            const totalPages = Math.ceil(filteredCourses.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.className = i === currentPage ? 'active' : '';
+                button.onclick = () => {
+                    currentPage = i;
+                    loadCourses();
+                    setupPagination();
+                };
+                pagination.appendChild(button);
+            }
+        }
+
+        function setView(viewType) {
+            const gridView = document.getElementById('gridView');
+            const listView = document.getElementById('listView');
+            const coursesGrid = document.getElementById('coursesGrid');
+
+            if (viewType === 'grid') {
+                gridView.classList.add('active');
+                listView.classList.remove('active');
+                coursesGrid.className = 'courses-grid';
+            } else {
+                listView.classList.add('active');
+                gridView.classList.remove('active');
+                coursesGrid.className = 'courses-grid list-view';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('courseModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

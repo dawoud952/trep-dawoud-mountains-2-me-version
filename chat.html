@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدردشة - TREP DAWOUD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E8B57;
+            --secondary: #87CEEB;
+            --tertiary: #8B4513;
+            --white: #FFFFFF;
+            --black: #2F4F4F;
+            --gray-light: #f5f5f5;
+            --gray-medium: #e1e1e1;
+            --gray-dark: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        /* Header */
+        header {
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo h2 {
+            color: var(--primary);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+
+        /* Chat Container */
+        .chat-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .chat-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .chat-header h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .user-info {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* 3D Chat Area */
+        .chat-messages {
+            height: 500px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--gray-light) 25%, transparent 25%),
+                        linear-gradient(-45deg, var(--gray-light) 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, var(--gray-light) 75%),
+                        linear-gradient(-45deg, transparent 75%, var(--gray-light) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            transform-style: preserve-3d;
+        }
+
+        .message {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 15px;
+            max-width: 70%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: messageFloat 0.5s ease-out;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .message.sent {
+            background: var(--primary);
+            color: var(--white);
+            margin-left: auto;
+            margin-right: 1rem;
+            transform: rotateX(5deg) rotateY(-5deg) translateZ(10px);
+        }
+
+        .message.received {
+            background: var(--white);
+            color: var(--black);
+            margin-right: auto;
+            margin-left: 1rem;
+            transform: rotateX(-5deg) rotateY(5deg) translateZ(10px);
+        }
+
+        .message::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            top: 15px;
+        }
+
+        .message.sent::before {
+            border-left-color: var(--primary);
+            border-right: none;
+            right: -10px;
+        }
+
+        .message.received::before {
+            border-right-color: var(--white);
+            border-left: none;
+            left: -10px;
+        }
+
+        .message-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .message img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .message img:hover {
+            transform: scale(1.05);
+        }
+
+        .message-time {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes messageFloat {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Chat Input */
+        .chat-input {
+            padding: 1.5rem;
+            background: var(--gray-light);
+            border-top: 2px solid var(--gray-medium);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--gray-medium);
+            border-radius: 25px;
+            font-size: 1rem;
+            resize: none;
+            min-height: 20px;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(46, 139, 87, 0.3);
+        }
+
+        .input-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: var(--tertiary);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--black);
+        }
+
+        .btn-secondary:hover {
+            background: #5dade2;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            padding: 0.8rem;
+            background: var(--secondary);
+            color: var(--black);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        .file-label:hover {
+            background: #5dade2;
+            transform: scale(1.1);
+        }
+
+        .emoji-btn {
+            padding: 0.8rem;
+            background: var(--tertiary);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .emoji-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .emoji-picker {
+            position: absolute;
+            bottom: 70px;
+            right: 20px;
+            background: var(--white);
+            border: 2px solid var(--gray-medium);
+            border-radius: 15px;
+            padding: 1rem;
+            display: none;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 300px;
+        }
+
+        .emoji-picker.show {
+            display: grid;
+        }
+
+        .emoji {
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background 0.2s ease;
+        }
+
+        .emoji:hover {
+            background: var(--gray-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--white);
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .chat-container {
+                margin: 1rem;
+                max-width: none;
+            }
+
+            .chat-messages {
+                height: 400px;
+            }
+
+            .message {
+                max-width: 85%;
+            }
+
+            .chat-input {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .input-actions {
+                justify-content: center;
+            }
+
+            .emoji-picker {
+                right: 10px;
+                max-width: 280px;
+            }
+        }
+
+        /* 3D Hover Effects */
+        .message:hover {
+            transform: translateZ(20px) rotateX(0deg) rotateY(0deg);
+            transition: transform 0.3s ease;
+        }
+
+        .chat-messages:hover .message {
+            animation: floatMessages 3s ease-in-out infinite;
+        }
+
+        @keyframes floatMessages {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav-container">
+            <div class="logo">
+                <h2>TREP DAWOUD</h2>
+            </div>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="mountains.html">الجبال</a></li>
+                <li><a href="blog.html">المدونة</a></li>
+                <li><a href="courses.html">الدورات</a></li>
+                <li><a href="services.html">الخدمات</a></li>
+                <li><a href="dashboard.html">لوحة التحكم</a></li>
+                <li><a href="chat.html" class="active">الدردشة</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>الدردشة المجتمعية</h1>
+            <div class="user-info">مرحباً بك، <span id="userName">المستخدم</span>! 🎉</div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message received">
+                <div class="message-content">
+                    <span>مرحباً! أهلاً وسهلاً في دردشة TREP DAWOUD 🏔️</span>
+                </div>
+                <div class="message-time">الآن</div>
+            </div>
+            <div class="message received">
+                <div class="message-content">
+                    <span>هنا يمكنك التواصل مع متسلقين آخرين، مشاركة الصور، والإستمتاع بالمحادثات! 😊</span>
+                </div>
+                <div class="message-time">الآن</div>
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <textarea
+                class="message-input"
+                id="messageInput"
+                placeholder="اكتب رسالتك هنا..."
+                rows="1"
+            ></textarea>
+
+            <div class="input-actions">
+                <label for="fileInput" class="file-label" title="إرفاق صورة">
+                    📎
+                </label>
+                <input type="file" id="fileInput" class="file-input" accept="image/*">
+
+                <button class="emoji-btn" id="emojiBtn" title="إضافة إيموجي">
+                    😊
+                </button>
+
+                <button class="btn" id="sendBtn">إرسال</button>
+            </div>
+        </div>
+
+        <div class="emoji-picker" id="emojiPicker">
+            😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 😰 😥 😓 🤗 🤔 🤭 🤫 🤥 😶 😐 😑 😬 🙄 😯 😦 😧 😮 😲 🥱 😴 🤤 😪 😵 🤐 🥴 🤢 🤮 🤧 😷 🤒 🤕 🤑 🤠 😈 👿 👹 👺 💩 👻 💀 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 TREP DAWOUD. جميع الحقوق محفوظة.</p>
+        <div>
+            <a href="#">سياسة الخصوصية</a>
+            <a href="#">الشروط والأحكام</a>
+            <a href="#">اتصل بنا</a>
+        </div>
+    </footer>
+
+    <script>
+        // Get user name from localStorage or use default
+        const userName = localStorage.getItem('userName') || 'أحمد محمد';
+        document.getElementById('userName').textContent = userName;
+
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const fileInput = document.getElementById('fileInput');
+        const emojiBtn = document.getElementById('emojiBtn');
+        const emojiPicker = document.getElementById('emojiPicker');
+
+        // Auto-resize textarea
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+
+        // Send message
+        function sendMessage(content, type = 'text') {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message sent';
+
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+
+            if (type === 'image') {
+                const img = document.createElement('img');
+                img.src = content;
+                img.onload = () => chatMessages.scrollTop = chatMessages.scrollHeight;
+                messageContent.appendChild(img);
+            } else {
+                messageContent.innerHTML = content;
+            }
+
+            const messageTime = document.createElement('div');
+            messageTime.className = 'message-time';
+            messageTime.textContent = new Date().toLocaleTimeString('ar-SA', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            messageDiv.appendChild(messageContent);
+            messageDiv.appendChild(messageTime);
+            chatMessages.appendChild(messageDiv);
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Simulate response after 1-3 seconds
+            setTimeout(() => {
+                simulateResponse();
+            }, Math.random() * 2000 + 1000);
+        }
+
+        // Send text message
+        sendBtn.addEventListener('click', () => {
+            const message = messageInput.value.trim();
+            if (message) {
+                sendMessage(message);
+                messageInput.value = '';
+                messageInput.style.height = 'auto';
+            }
+        });
+
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+
+        // Handle file upload
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    sendMessage(e.target.result, 'image');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Emoji picker
+        emojiBtn.addEventListener('click', () => {
+            emojiPicker.classList.toggle('show');
+        });
+
+        emojiPicker.addEventListener('click', (e) => {
+            if (e.target.classList.contains('emoji')) {
+                messageInput.value += e.target.textContent;
+                messageInput.focus();
+                emojiPicker.classList.remove('show');
+                messageInput.dispatchEvent(new Event('input'));
+            }
+        });
+
+        // Close emoji picker when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!emojiBtn.contains(e.target) && !emojiPicker.contains(e.target)) {
+                emojiPicker.classList.remove('show');
+            }
+        });
+
+        // Simulate responses
+        function simulateResponse() {
+            const responses = [
+                'رائع! أخبرني المزيد عن رحلتك الأخيرة 🏔️',
+                'صورة مذهلة! أين تم التقطها؟ 📸',
+                'نصيحة جيدة! شكراً للمشاركة 💡',
+                'أنا أيضاً أحب التسلق! ما هو جبلك المفضل؟ ⛰️',
+                '😊 شكراً للرسالة!',
+                'هذا يبدو ممتعاً! هل لديك نصائح للمبتدئين؟ 🤔',
+                'رائع جداً! استمر في المشاركة 📢'
+            ];
+
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message received';
+
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerHTML = randomResponse;
+
+            const messageTime = document.createElement('div');
+            messageTime.className = 'message-time';
+            messageTime.textContent = new Date().toLocaleTimeString('ar-SA', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            messageDiv.appendChild(messageContent);
+            messageDiv.appendChild(messageTime);
+            chatMessages.appendChild(messageDiv);
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Initial welcome message
+        setTimeout(() => {
+            sendMessage('مرحباً! أنا متحمس للانضمام إلى المجتمع 🥳', 'text');
+        }, 1000);
+    </script>
+</body>
+</html>

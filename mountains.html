@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجبال - TREP DAWOUD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E8B57;
+            --secondary: #87CEEB;
+            --tertiary: #8B4513;
+            --white: #FFFFFF;
+            --black: #2F4F4F;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            padding-top: 80px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            /* Prevent layout shifts */
+            min-height: 100vh;
+            position: relative;
+        }
+        header {
+            background: var(--black);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            /* Stable header */
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .logo h2 {
+            color: var(--primary);
+            /* Prevent text reflow */
+            white-space: nowrap;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            /* Prevent flex wrapping */
+            flex-shrink: 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            /* Remove transition to prevent jitter */
+            /* transition: color 0.3s ease; */
+        }
+        nav a:hover {
+            color: var(--primary);
+        }
+        .hero-section {
+            dawoud: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./images/dawoud.jpg');
+            dawoud-size: cover;
+            dawoud-position: center;
+            /* Remove dawoud-attachment: fixed to prevent performance issues */
+            /* dawoud-attachment: fixed; */
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            /* Remove will-change to prevent GPU layer issues */
+            /* will-change: transform; */
+            /* Fixed height to prevent layout shifts */
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            /* Prevent text reflow */
+            white-space: nowrap;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            /* Prevent text reflow */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .filters-section {
+            background: var(--secondary);
+            padding: 2rem;
+            /* Fixed height to prevent layout shifts */
+            min-height: 200px;
+        }
+        .filters-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Use fixed grid instead of auto-fit to prevent column changes */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            /* Remove will-change */
+            /* will-change: auto; */
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            /* Fixed height for consistency */
+            min-height: 80px;
+        }
+        .filter-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            /* Prevent text reflow */
+            white-space: nowrap;
+        }
+        .filter-group select,
+        .filter-group input {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            /* Fixed height */
+            height: 40px;
+            /* Prevent width changes */
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            /* Remove transition to prevent jitter */
+            /* transition: all 0.3s ease; */
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+            /* Remove will-change and backface-visibility */
+            /* will-change: transform; */
+            /* backface-visibility: hidden; */
+            /* -webkit-backface-visibility: hidden; */
+            /* Fixed dimensions */
+            min-width: 120px;
+            height: 40px;
+        }
+        .btn:hover {
+            background: var(--tertiary);
+            /* Remove transform to prevent layout shifts */
+            /* transform: translateY(-2px); */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .mountains-section {
+            padding: 4rem 2rem;
+            /* Fixed min-height to prevent layout shifts */
+            min-height: 600px;
+        }
+        .mountains-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .mountains-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            /* Fixed height */
+            min-height: 60px;
+        }
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .view-toggle button {
+            padding: 0.5rem;
+            border: 2px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            border-radius: 5px;
+            cursor: pointer;
+            /* Remove transition to prevent jitter */
+            /* transition: all 0.3s ease; */
+            /* Fixed dimensions */
+            width: 80px;
+            height: 40px;
+            /* Remove will-change */
+            /* will-change: transform; */
+            /* backface-visibility: hidden; */
+            /* -webkit-backface-visibility: hidden; */
+        }
+        .view-toggle button.active {
+            background: var(--primary);
+            color: white;
+        }
+        .view-toggle button:hover {
+            /* Remove transform to prevent layout shifts */
+            /* transform: scale(1.05); */
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .mountains-grid {
+            /* Use fixed grid columns instead of auto-fill to prevent reflow */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            /* Remove will-change */
+            /* will-change: auto; */
+            /* Fixed min-height to prevent layout shifts */
+            min-height: 400px;
+        }
+        .mountain-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            /* Remove transition to prevent jitter */
+            /* transition: transform 0.3s ease; */
+            /* Remove will-change and backface-visibility */
+            /* will-change: transform; */
+            /* backface-visibility: hidden; */
+            /* -webkit-backface-visibility: hidden; */
+            /* transform: translateZ(0); */
+            /* Fixed dimensions */
+            width: 100%;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+        }
+        .mountain-card:hover {
+            /* Remove transform to prevent layout shifts */
+            /* transform: translateY(-10px); */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .mountain-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            /* Remove will-change */
+            /* will-change: auto; */
+            /* Prevent image loading shifts */
+            background: #f0f0f0;
+        }
+        .mountain-card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .mountain-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            /* Prevent text reflow */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .mountain-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #666;
+            /* Fixed height */
+            min-height: 20px;
+        }
+        .difficulty {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            /* Fixed dimensions */
+            display: inline-block;
+            min-width: 60px;
+            text-align: center;
+        }
+        .difficulty.beginner { background: #e8f5e8; color: #2e7d32; }
+        .difficulty.intermediate { background: #fff3e0; color: #ef6c00; }
+        .difficulty.advanced { background: #ffebee; color: #c62828; }
+        .difficulty.expert { background: #1a1a1a; color: white; }
+        .mountain-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            /* Fixed height */
+            min-height: 40px;
+        }
+        .mountain-actions .btn {
+            flex: 1;
+            padding: 0.6rem;
+            font-size: 0.9rem;
+            /* Fixed height */
+            height: 35px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            /* Fixed height */
+            min-height: 50px;
+        }
+        .pagination button {
+            padding: 0.8rem 1.2rem;
+            border: 2px solid var(--secondary);
+            background: white;
+            color: var(--primary);
+            border-radius: 5px;
+            cursor: pointer;
+            /* Remove transition to prevent jitter */
+            /* transition: all 0.3s ease; */
+            /* Fixed dimensions */
+            min-width: 40px;
+            height: 40px;
+            /* Remove will-change */
+            /* will-change: transform; */
+            /* backface-visibility: hidden; */
+            /* -webkit-backface-visibility: hidden; */
+        }
+        .pagination button.active {
+            background: var(--primary);
+            color: white;
+            /* Remove transform to prevent layout shifts */
+            /* transform: scale(1.05); */
+        }
+        .pagination button:hover:not(.active) {
+            background: var(--secondary);
+            /* Remove transform to prevent layout shifts */
+            /* transform: scale(1.02); */
+        }
+        .map-section {
+            padding: 4rem 2rem;
+            background: var(--secondary);
+            /* Fixed height */
+            min-height: 400px;
+        }
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 400px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            /* Prevent content shifts */
+            position: relative;
+        }
+        footer {
+            background: var(--black);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            /* Fixed height */
+            min-height: 100px;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            /* Remove backdrop-filter for better performance */
+            /* backdrop-filter: blur(5px); */
+        }
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 90%;
+            margin: 2rem;
+            /* Remove will-change and backface-visibility */
+            /* will-change: transform; */
+            /* backface-visibility: hidden; */
+            /* -webkit-backface-visibility: hidden; */
+            /* transform: translateZ(0); */
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            /* Fixed max-height */
+            max-height: 600px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--secondary);
+            /* Fixed height */
+            min-height: 80px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: var(--primary);
+            /* Prevent text overflow */
+            word-wrap: break-word;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--black);
+            /* Fixed dimensions */
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-body {
+            padding: 1.5rem;
+        }
+        .modal-image {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            /* Fixed height */
+            min-height: 320px;
+        }
+        .modal-image img {
+            max-width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            /* Prevent loading shifts */
+            background: #f0f0f0;
+        }
+        .modal-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+        .detail-row {
+            padding: 0.5rem;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border-right: 4px solid var(--primary);
+            /* Fixed min-height */
+            min-height: 30px;
+            display: flex;
+            align-items: center;
+        }
+        .detail-row strong {
+            color: var(--primary);
+            /* Prevent text reflow */
+            white-space: nowrap;
+            margin-left: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+            }
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            .filters-container {
+                grid-template-columns: 1fr;
+            }
+            .mountains-grid {
+                grid-template-columns: 1fr;
+            }
+            .mountains-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            .mountain-actions {
+                flex-direction: column;
+            }
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+            .modal-details {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h2>TREP DAWOUD</h2>
+            </div>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="mountains.html" style="color: var(--primary);">الجبال</a></li>
+                <li><a href="blog.html">المدونة</a></li>
+                <li><a href="courses.html">الدورات</a></li>
+                <li><a href="question.html">الأسئلة</a></li>
+                <li><a href="services.html">الخدمات</a></li>
+                <li><a href="login.html">تسجيل الدخول</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h1>استكشف الجبال</h1>
+        <p>اكتشف أكثر من 1000 جبل حول العالم مع تفاصيل شاملة وخرائط تفاعلية</p>
+    </section>
+
+    <section class="filters-section">
+        <div class="filters-container">
+            <div class="filter-group">
+                <label for="continent">القارة</label>
+                <select id="continent">
+                    <option value="">جميع القارات</option>
+                    <option value="آسيا">آسيا</option>
+                    <option value="أوروبا">أوروبا</option>
+                    <option value="أفريقيا">أفريقيا</option>
+                    <option value="أمريكا الشمالية">أمريكا الشمالية</option>
+                    <option value="أمريكا الجنوبية">أمريكا الجنوبية</option>
+                    <option value="القارة القطبية الجنوبية">القارة القطبية الجنوبية</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="country">الدولة</label>
+                <select id="country">
+                    <option value="">جميع الدول</option>
+                    <option value="نيبال">نيبال</option>
+                    <option value="باكستان">باكستان</option>
+                    <option value="الصين">الصين</option>
+                    <option value="الهند">الهند</option>
+                    <option value="فرنسا">فرنسا</option>
+                    <option value="إيطاليا">إيطاليا</option>
+                    <option value="تنزانيا">تنزانيا</option>
+                    <option value="روسيا">روسيا</option>
+                    <option value="الأرجنتين">الأرجنتين</option>
+                    <option value="ألاسكا">ألاسكا</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="minHeight">الارتفاع الأدنى (متر)</label>
+                <input type="number" id="minHeight" placeholder="مثال: 1000">
+            </div>
+            <div class="filter-group">
+                <label for="maxHeight">الارتفاع الأقصى (متر)</label>
+                <input type="number" id="maxHeight" placeholder="مثال: 8000">
+            </div>
+            <div class="filter-group">
+                <label for="difficulty">مستوى الصعوبة</label>
+                <select id="difficulty">
+                    <option value="">جميع المستويات</option>
+                    <option value="beginner">مبتدئ</option>
+                    <option value="intermediate">متوسط</option>
+                    <option value="advanced">متقدم</option>
+                    <option value="expert">محترف</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="search">البحث</label>
+                <input type="text" id="search" placeholder="ابحث عن جبل...">
+            </div>
+            <div class="filter-group" style="justify-content: flex-end; align-items: flex-end;">
+                <button class="btn" onclick="applyFilters()">تطبيق التصفية</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="mountains-section">
+        <div class="mountains-container">
+            <div class="mountains-header">
+                <h2>الجبال (<span id="mountainsCount">0</span> جبل)</h2>
+                <div class="view-toggle">
+                    <button id="gridView" class="active" onclick="setView('grid')">🔳 شبكة</button>
+                    <button id="listView" onclick="setView('list')">📋 قائمة</button>
+                </div>
+            </div>
+
+            <div class="mountains-grid" id="mountainsGrid">
+                <!-- Mountains will be loaded here -->
+            </div>
+
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be generated here -->
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="mountains-container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">خريطة الجبال التفاعلية</h2>
+            <div class="map-container" id="mapContainer">
+                <div style="text-align: center;">
+                    <h3>🗺️ خريطة تفاعلية</h3>
+                    <p>لعرض الخريطة التفاعلية، يرجى إضافة مفتاح Google Maps API</p>
+                    <p>يمكنك رؤية مواقع الجبال ومسارات التسلق</p>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn" onclick="simulateMapLoad()">تحميل الخريطة (محاكاة)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 TREP DAWOUD. جميع الحقوق محفوظة.</p>
+        <div style="margin-top: 1rem;">
+            <a href="#" style="color: white; margin: 0 1rem;">سياسة الخصوصية</a>
+            <a href="#" style="color: white; margin: 0 1rem;">الشروط والأحكام</a>
+            <a href="#" style="color: white; margin: 0 1rem;">اتصل بنا</a>
+        </div>
+    </footer>
+
+    <script src="mountains.js"></script>
+    <script>
+        // Load mountains from external data file
+        let mountains = [];
+        if (typeof mountainsDatabase !== 'undefined') {
+            mountains = mountainsDatabase.map(m => ({
+                id: m.id,
+                name: m.name,
+                nameEn: m.nameEn,
+                location: m.location,
+                continent: m.continent,
+                country: m.country,
+                height: m.elevation,
+                difficulty: m.difficulty,
+                image: `./images/dawoud.jpg`,
+                description: m.description,
+                firstAscent: m.firstAscent,
+                firstAscentBy: m.firstAscentBy,
+                weather: m.weather,
+                bestTime: m.bestTime,
+                routes: m.routes,
+                hazards: m.hazards,
+                equipment: m.equipment,
+                coordinates: m.coordinates,
+                tags: m.tags,
+                duration: m.duration,
+                cost: m.cost,
+                successRate: m.successRate
+            }));
+        } else {
+            // Fallback
+            mountains = [];
+        }
+
+        let currentPage = 1;
+        const itemsPerPage = 9;
+        let filteredMountains = [...mountains];
+
+        // Load mountains on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMountains();
+            setupPagination();
+        });
+
+        function loadMountains() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const mountainsToShow = filteredMountains.slice(startIndex, endIndex);
+
+            const mountainsGrid = document.getElementById('mountainsGrid');
+            const fragment = document.createDocumentFragment();
+
+            mountainsToShow.forEach(mountain => {
+                const mountainCard = createMountainCard(mountain);
+                fragment.appendChild(mountainCard);
+            });
+
+            mountainsGrid.innerHTML = '';
+            mountainsGrid.appendChild(fragment);
+
+            document.getElementById('mountainsCount').textContent = filteredMountains.length;
+        }
+
+        function createMountainCard(mountain) {
+            const card = document.createElement('div');
+            card.className = 'mountain-card';
+
+            card.innerHTML = `
+                <img src="${mountain.image}" alt="${mountain.name}" loading="lazy">
+                <div class="mountain-card-content">
+                    <h3>${mountain.name}</h3>
+                    <p>${mountain.description}</p>
+                    <div class="mountain-meta">
+                        <span>📍 ${mountain.location}</span>
+                        <span>⛰️ ${mountain.height}م</span>
+                    </div>
+                    <div class="difficulty ${mountain.difficulty}">${getDifficultyText(mountain.difficulty)}</div>
+                    <div class="mountain-actions">
+                        <button class="btn" onclick="viewMountainDetails(${mountain.id})">عرض التفاصيل</button>
+                        <button class="btn" onclick="addToWishlist(${mountain.id})">إضافة للمفضلة</button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function getDifficultyText(difficulty) {
+            const texts = {
+                beginner: 'مبتدئ',
+                intermediate: 'متوسط',
+                advanced: 'متقدم',
+                expert: 'محترف'
+            };
+            return texts[difficulty] || difficulty;
+        }
+
+        function setupPagination() {
+            const totalPages = Math.ceil(filteredMountains.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.className = i === currentPage ? 'active' : '';
+                button.onclick = () => {
+                    currentPage = i;
+                    loadMountains();
+                    setupPagination();
+                };
+                pagination.appendChild(button);
+            }
+        }
+
+        function applyFilters() {
+            const continent = document.getElementById('continent').value;
+            const country = document.getElementById('country').value;
+            const minHeight = parseInt(document.getElementById('minHeight').value) || 0;
+            const maxHeight = parseInt(document.getElementById('maxHeight').value) || Infinity;
+            const difficulty = document.getElementById('difficulty').value;
+            const search = document.getElementById('search').value.toLowerCase();
+
+            filteredMountains = mountains.filter(mountain => {
+                return (!continent || mountain.continent === continent) &&
+                       (!country || mountain.country.toLowerCase().includes(country.toLowerCase())) &&
+                       (mountain.height >= minHeight) &&
+                       (mountain.height <= maxHeight) &&
+                       (!difficulty || mountain.difficulty === difficulty) &&
+                       (!search || mountain.name.toLowerCase().includes(search) ||
+                        mountain.nameEn.toLowerCase().includes(search) ||
+                        mountain.location.toLowerCase().includes(search));
+            });
+
+            currentPage = 1;
+            loadMountains();
+            setupPagination();
+        }
+
+        function setView(viewType) {
+            const gridView = document.getElementById('gridView');
+            const listView = document.getElementById('listView');
+            const mountainsGrid = document.getElementById('mountainsGrid');
+
+            if (viewType === 'grid') {
+                gridView.classList.add('active');
+                listView.classList.remove('active');
+                mountainsGrid.className = 'mountains-grid';
+            } else {
+                listView.classList.add('active');
+                gridView.classList.remove('active');
+                mountainsGrid.className = 'mountains-list';
+            }
+        }
+
+        function viewMountainDetails(id) {
+            const mountain = mountains.find(m => m.id === id);
+            if (mountain) {
+                showMountainModal(mountain);
+            }
+        }
+
+        function showMountainModal(mountain) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            // Remove opacity animation to prevent jitter
+            // modal.style.opacity = '0';
+
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>${mountain.name} (${mountain.nameEn})</h2>
+                        <button class="modal-close" onclick="closeModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-image">
+                            <img src="${mountain.image}" alt="${mountain.name}" loading="lazy">
+                        </div>
+                        <div class="modal-details">
+                            <div class="detail-row">
+                                <strong>الموقع:</strong>
+                                <button class="btn location-btn" onclick="openGoogleMaps(${mountain.id})" style="margin-right: 0.5rem; padding: 0.4rem 0.8rem; font-size: 0.8rem; height: auto; min-width: auto;">📍 عرض على الخريطة</button>
+                                <span>${mountain.location}</span>
+                            </div>
+                            <div class="detail-row"><strong>الارتفاع:</strong> ${mountain.height} متر</div>
+                            <div class="detail-row"><strong>الصعوبة:</strong> ${getDifficultyText(mountain.difficulty)}</div>
+                            <div class="detail-row"><strong>القارة:</strong> ${mountain.continent}</div>
+                            <div class="detail-row"><strong>الدولة:</strong> ${mountain.country}</div>
+                            <div class="detail-row"><strong>أول تسلق:</strong> ${mountain.firstAscent} بواسطة ${mountain.firstAscentBy}</div>
+                            <div class="detail-row"><strong>الطقس:</strong> ${mountain.weather}</div>
+                            <div class="detail-row"><strong>أفضل وقت للتسلق:</strong> ${mountain.bestTime}</div>
+                            <div class="detail-row"><strong>المسارات:</strong> ${mountain.routes.join(', ')}</div>
+                            <div class="detail-row"><strong>المخاطر:</strong> ${mountain.hazards.join(', ')}</div>
+                            <div class="detail-row"><strong>المعدات:</strong> ${mountain.equipment.join(', ')}</div>
+                            <div class="detail-row"><strong>المدة:</strong> ${mountain.duration}</div>
+                            <div class="detail-row"><strong>التكلفة:</strong> ${mountain.cost}</div>
+                            <div class="detail-row"><strong>معدل النجاح:</strong> ${mountain.successRate}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Remove animation to prevent jitter
+            // modal.offsetHeight;
+            // modal.style.transition = 'opacity 0.3s ease';
+            // modal.style.opacity = '1';
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.modal-overlay');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function addToWishlist(id) {
+            const mountain = mountains.find(m => m.id === id);
+            if (mountain) {
+                alert(`تم إضافة ${mountain.name} إلى المفضلة`);
+            }
+        }
+
+        function openGoogleMaps(id) {
+            const mountain = mountains.find(m => m.id === id);
+            if (mountain && mountain.coordinates && mountain.coordinates.lat && mountain.coordinates.lng) {
+                const url = `https://www.google.com/maps?q=${mountain.coordinates.lat},${mountain.coordinates.lng}`;
+                window.open(url, '_blank');
+            } else {
+                alert('لا يوجد موقع متاح لهذا الجبل');
+            }
+        }
+
+        function simulateMapLoad() {
+            const mapContainer = document.getElementById('mapContainer');
+            mapContainer.innerHTML = `
+                <div style="width: 100%; height: 100%; background: linear-gradient(45deg, #2E8B57, #87CEEB); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                    <div style="text-align: center;">
+                        <div>🗺️ خريطة جوجل محملة</div>
+                        <div style="font-size: 0.8rem; margin-top: 0.5rem;">علامات الجبال: ${filteredMountains.length} جبل</div>
+                        <div style="font-size: 0.8rem;">انقر على العلامات لعرض التفاصيل</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        let filterTimeout;
+        function applyFiltersThrottled() {
+            clearTimeout(filterTimeout);
+            filterTimeout = setTimeout(applyFilters, 300); // Increased delay to reduce reflows
+        }
+
+        document.querySelectorAll('select').forEach(element => {
+            element.addEventListener('change', applyFiltersThrottled);
+        });
+
+        document.getElementById('search').addEventListener('input', applyFiltersThrottled);
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

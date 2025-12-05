@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الخدمات - TREP DAWOUD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E8B57;
+            --secondary: #87CEEB;
+            --tertiary: #8B4513;
+            --white: #FFFFFF;
+            --black: #2F4F4F;
+            --accent: #FFD700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--white) 0%, #f8f9fa 100%);
+            color: var(--black);
+            padding-top: 80px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 3D Effects and Lighting */
+        .services-3d-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-3d-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: 20px 20px 0 0;
+        }
+
+        .services-3d-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow:
+                0 30px 60px rgba(0, 0, 0, 0.2),
+                0 0 30px rgba(46, 139, 87, 0.3);
+        }
+
+        .glow-border {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .services-3d-card:hover .glow-border {
+            opacity: 1;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: blur(0px); }
+            to { filter: blur(10px); }
+        }
+
+        .light-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 20px rgba(46, 139, 87, 0.3); }
+            to { box-shadow: 0 0 30px rgba(46, 139, 87, 0.6); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-check {
+            color: var(--primary);
+            margin-left: 0.5rem;
+            font-weight: bold;
+        }
+
+        .service-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-duration {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #228B22);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), #4682B4);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(135, 206, 235, 0.4);
+        }
+
+        /* Equipment Section */
+        .equipment-section {
+            margin-bottom: 4rem;
+        }
+
+        .equipment-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .equipment-section p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .equipment-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .equipment-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .equipment-content {
+            padding: 1.5rem;
+        }
+
+        .equipment-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+        }
+
+        .equipment-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .equipment-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .equipment-category {
+            display: inline-block;
+            background: rgba(46, 139, 87, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* Flight Booking Section */
+        .flight-section {
+            background: linear-gradient(135deg, rgba(46, 139, 87, 0.05), rgba(135, 206, 235, 0.05));
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .flight-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .flight-section p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .flight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .flight-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .flight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .flight-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .flight-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .flight-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .flight-details {
+            background: rgba(46, 139, 87, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .flight-details p {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Booking Form */
+        .booking-section {
+            background: linear-gradient(135deg, var(--tertiary), #654321);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .booking-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .booking-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--black);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.3);
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">TREP DAWOUD</div>
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="mountains.html">الجبال</a></li>
+                <li><a href="courses.html">الدورات</a></li>
+                <li><a href="services.html" class="active">الخدمات</a></li>
+                <li><a href="question.html">الأسئلة</a></li>
+                <li><a href="blog.html">المدونة</a></li>
+                <li><a href="login.html">تسجيل الدخول</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="hero-section">
+            <h1 class="gradient-text">خدماتنا المتخصصة</h1>
+            <p>نقدم خدمات احترافية لجعل مغامراتكم آمنة وممتعة ولا تُنسى. من الرحلات المرشدة إلى تأجير المعدات، نوفر كل ما تحتاجونه.</p>
+        </section>
+
+        <section class="services-grid">
+            <div class="service-card services-3d-card float-animation">
+                <div class="glow-border"></div>
+                <div class="light-effect"></div>
+                <span class="service-icon">🏔️</span>
+                <h3>رحلة جبلية مرشدة</h3>
+                <p>انضموا إلى مرشدينا المحترفين في رحلات مثيرة إلى أعلى القمم</p>
+                <ul class="service-features">
+                    <li><span class="feature-check">✓</span> مرشدون معتمدون</li>
+                    <li><span class="feature-check">✓</span> معدات أمان كاملة</li>
+                    <li><span class="feature-check">✓</span> خطط تغذية متخصصة</li>
+                    <li><span class="feature-check">✓</span> دعم طبي 24/7</li>
+                </ul>
+                <div class="service-price">$3500 - $6500</div>
+                <div class="service-duration">6-8 أسابيع</div>
+                <button class="btn-primary pulse-glow" onclick="scrollToBooking('guided-trip')">احجز الآن</button>
+            </div>
+
+            <div class="service-card services-3d-card float-animation">
+                <div class="glow-border"></div>
+                <div class="light-effect"></div>
+                <span class="service-icon">🎒</span>
+                <h3>تأجير المعدات</h3>
+                <p>استأجروا أحدث المعدات الجبلية بأسعار معقولة</p>
+                <ul class="service-features">
+                    <li><span class="feature-check">✓</span> معدات عالية الجودة</li>
+                    <li><span class="feature-check">✓</span> صيانة منتظمة</li>
+                    <li><span class="feature-check">✓</span> تسليم واستلام مريح</li>
+                    <li><span class="feature-check">✓</span> ضمان شامل</li>
+                </ul>
+                <div class="service-price">$200 - $800</div>
+                <div class="service-duration">أسبوع - شهر</div>
+                <button class="btn-primary pulse-glow" onclick="scrollToBooking('equipment-rental')">احجز الآن</button>
+            </div>
+
+            <div class="service-card services-3d-card float-animation">
+                <div class="glow-border"></div>
+                <div class="light-effect"></div>
+                <span class="service-icon">🎯</span>
+                <h3>تدريب شخصي</h3>
+                <p>طوروا مهاراتكم مع مدربينا المحترفين</p>
+                <ul class="service-features">
+                    <li><span class="feature-check">✓</span> تدريب فردي أو جماعي</li>
+                    <li><span class="feature-check">✓</span> تقييم مستوى المهارة</li>
+                    <li><span class="feature-check">✓</span> برامج تدريبية مخصصة</li>
+                    <li><span class="feature-check">✓</span> شهادات معتمدة</li>
+                </ul>
+                <div class="service-price">$150 - $400</div>
+                <div class="service-duration">ساعة - أسبوع</div>
+                <button class="btn-primary pulse-glow" onclick="scrollToBooking('personal-training')">احجز الآن</button>
+            </div>
+
+            <div class="service-card services-3d-card float-animation">
+                <div class="glow-border"></div>
+                <div class="light-effect"></div>
+                <span class="service-icon">💬</span>
+                <h3>استشارة</h3>
+                <p>احصلوا على نصائح الخبراء لرحلاتكم القادمة</p>
+                <ul class="service-features">
+                    <li><span class="feature-check">✓</span> تخطيط الرحلات</li>
+                    <li><span class="feature-check">✓</span> اختيار المعدات</li>
+                    <li><span class="feature-check">✓</span> تقييم المخاطر</li>
+                    <li><span class="feature-check">✓</span> نصائح الأمان</li>
+                </ul>
+                <div class="service-price">$100 - $300</div>
+                <div class="service-duration">ساعة - يوم</div>
+                <button class="btn-primary pulse-glow" onclick="scrollToBooking('consultation')">احجز الآن</button>
+            </div>
+        </section>
+
+        <section class="equipment-section">
+            <h2 class="gradient-text">معدات التسلق المتميزة</h2>
+            <p>اكتشفوا مجموعتنا المختارة بعناية من معدات التسلق عالية الجودة من أفضل العلامات التجارية. كل قطعة تم اختيارها بعناية للأداء والسلامة والموثوقية.</p>
+
+            <div class="equipment-grid">
+                <div class="equipment-card">
+                    <div class="equipment-image">🧗‍♂️</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-name">Petzl GriGri+ Belay Device</h3>
+                        <p class="equipment-description">جهاز تأمين متقدم للتسلق الرياضي والجبلي مع نظام التحكم التلقائي في السقوط</p>
+                        <div class="equipment-price">$99.95</div>
+                        <span class="equipment-category">السلامة</span>
+                        <a href="https://www.petzl.com/US/en/Product/GriGri-" target="_blank" class="btn-primary">🛒 اشترِ الآن</a>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">🧗‍♀️</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-name">Black Diamond Camalot C4</h3>
+                        <p class="equipment-description">نظام حماية قابل للتعديل للتسلق التقني والجبلي</p>
+                        <div class="equipment-price">$79.95</div>
+                        <span class="equipment-category">الحماية</span>
+                        <a href="https://www.blackdiamondequipment.com/en_US/camalot-c4" target="_blank" class="btn-primary">🛒 اشترِ الآن</a>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">🥾</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-name">La Sportiva Tarantulace Climbing Shoes</h3>
+                        <p class="equipment-description">أحذية تسلق احترافية مع قبضة ممتازة ودعم للقدم</p>
+                        <div class="equipment-price">$99.00</div>
+                        <span class="equipment-category">الأحذية</span>
+                        <a href="https://www.lasportiva.com/us/tarantulace" target="_blank" class="btn-primary">🛒 اشترِ الآن</a>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">🪢</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-name">Mammut Infinity Dry Rope</h3>
+                        <p class="equipment-description">حبل تسلق مقاوم للماء مع عمر طويل وأداء ممتاز</p>
+                        <div class="equipment-price">$249.95</div>
+                        <span class="equipment-category">الحبال</span>
+                        <a href="https://www.mammut.ch/us_en/infinity" target="_blank" class="btn-primary">🛒 اشترِ الآن</a>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">🧥</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-name">Arc'teryx Squamish Hoody</h3>
+                        <p class="equipment-description">هودي خفيف ومريح للتسلق والأنشطة الجبلية</p>
+                        <div class="equipment-price">$129.00</div>
+                        <span class="equipment-category">الملابس</span>
+                        <a href="https://www.arcteryx.com/us/en/shop/mens/squamish-hoody" target="_blank" class="btn-primary">🛒 اشترِ الآن</a>
+                    </div>
+                </div>
+
+                <div class="equipment-card">
+                    <div class="equipment-image">🔦</div>
+                    <div class="equipment-content">
+                        <h3 class="equipment-name">Petzl Actik Core Headlamp</h3>
+                        <p class="equipment-description">مصباح رأس قوي مع بطارية طويلة الأمد للتسلق الليلي</p>
+                        <div class="equipment-price">$89.95</div>
+                        <span class="equipment-category">الإضاءة</span>
+                        <a href="https://www.petzl.com/US/en/Product/ACTIK-CORE" target="_blank" class="btn-primary">🛒 اشترِ الآن</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="flight-section">
+            <h2 class="gradient-text">مساعدة حجز الطيران</h2>
+            <p>هل تحتاجون مساعدة للوصول إلى وجهة تسلقكم؟ نوفر مساعدة شاملة في حجز الطيران مع أفضل الأسعار وأكثر الطرق ملاءمة للوجهات الجبلية الرئيسية في العالم.</p>
+
+            <div class="flight-grid">
+                <div class="flight-card">
+                    <span class="flight-icon">🇳🇵</span>
+                    <h3>نيبال - كاتماندو</h3>
+                    <p>وصول إلى إيفرست وجبال الهيمالايا</p>
+                    <div class="flight-details">
+                        <p><strong>الخطوط الجوية:</strong> طيران الإمارات، الاتحاد، الخطوط القطرية</p>
+                        <p><strong>مطار الوصول:</strong> KTM</p>
+                        <p><strong>أفضل وقت السفر:</strong> أبريل-مايو، أكتوبر-نوفمبر</p>
+                        <p><strong>متوسط تكلفة الرحلة:</strong> $800-1200</p>
+                        <p><strong>مدة الرحلة:</strong> 4-6 ساعات</p>
+                    </div>
+                    <a href="https://www.google.com/flights?q=kathmandu&sort=price" target="_blank" class="btn-secondary">🔍 ابحث عن الرحلات</a>
+                </div>
+
+                <div class="flight-card">
+                    <span class="flight-icon">🇵🇰</span>
+                    <h3>باكستان - إسلام آباد</h3>
+                    <p>وصول إلى كي 2 وجبال الكاراكورام</p>
+                    <div class="flight-details">
+                        <p><strong>الخطوط الجوية:</strong> الخطوط الباكستانية، الاتحاد، طيران الإمارات</p>
+                        <p><strong>مطار الوصول:</strong> ISB</p>
+                        <p><strong>أفضل وقت السفر:</strong> يونيو-أغسطس</p>
+                        <p><strong>متوسط تكلفة الرحلة:</strong> $900-1300</p>
+                        <p><strong>مدة الرحلة:</strong> 3-5 ساعات</p>
+                    </div>
+                    <a href="https://www.google.com/flights?q=islamabad&sort=price" target="_blank" class="btn-secondary">🔍 ابحث عن الرحلات</a>
+                </div>
+
+                <div class="flight-card">
+                    <span class="flight-icon">🇦🇷</span>
+                    <h3>الأرجنتين - مندوزا</h3>
+                    <p>وصول إلى أكونكاغوا والأنديز</p>
+                    <div class="flight-details">
+                        <p><strong>الخطوط الجوية:</strong> طيران الإمارات، الاتحاد، الخطوط الأرجنتينية</p>
+                        <p><strong>مطار الوصول:</strong> MDZ</p>
+                        <p><strong>أفضل وقت السفر:</strong> ديسمبر-مارس</p>
+                        <p><strong>متوسط تكلفة الرحلة:</strong> $1200-1800</p>
+                        <p><strong>مدة الرحلة:</strong> 16-20 ساعة</p>
+                    </div>
+                    <a href="https://www.google.com/flights?q=mendoza&sort=price" target="_blank" class="btn-secondary">🔍 ابحث عن الرحلات</a>
+                </div>
+
+                <div class="flight-card">
+                    <span class="flight-icon">🇫🇷</span>
+                    <h3>فرنسا - شاموني</h3>
+                    <p>وصول إلى مونت بلانك والألب</p>
+                    <div class="flight-details">
+                        <p><strong>الخطوط الجوية:</strong> الخطوط الفرنسية، الاتحاد، طيران الإمارات</p>
+                        <p><strong>مطار الوصول:</strong> GVA (جنيف)</p>
+                        <p><strong>أفضل وقت السفر:</strong> يونيو-سبتمبر</p>
+                        <p><strong>متوسط تكلفة الرحلة:</strong> $700-1000</p>
+                        <p><strong>مدة الرحلة:</strong> 5-7 ساعات</p>
+                    </div>
+                    <a href="https://www.google.com/flights?q=geneva&sort=price" target="_blank" class="btn-secondary">🔍 ابحث عن الرحلات</a>
+                </div>
+
+                <div class="flight-card">
+                    <span class="flight-icon">🇹🇿</span>
+                    <h3>تنزانيا - أروشا</h3>
+                    <p>وصول إلى كليمنجارو</p>
+                    <div class="flight-details">
+                        <p><strong>الخطوط الجوية:</strong> الخطوط القطرية، الاتحاد، طيران الإمارات</p>
+                        <p><strong>مطار الوصول:</strong> ARK أو JRO</p>
+                        <p><strong>أفضل وقت السفر:</strong> يناير-مارس، يونيو-أكتوبر</p>
+                        <p><strong>متوسط تكلفة الرحلة:</strong> $1000-1500</p>
+                        <p><strong>مدة الرحلة:</strong> 6-8 ساعات</p>
+                    </div>
+                    <a href="https://www.google.com/flights?q=Arusha&sort=price" target="_blank" class="btn-secondary">🔍 ابحث عن الرحلات</a>
+                </div>
+
+                <div class="flight-card">
+                    <span class="flight-icon">🇺🇸</span>
+                    <h3>ألاسكا - أنكوراج</h3>
+                    <p>وصول إلى دينالي والجبال العالية</p>
+                    <div class="flight-details">
+                        <p><strong>الخطوط الجوية:</strong> دلتا، الاتحاد، طيران الإمارات</p>
+                        <p><strong>مطار الوصول:</strong> ANC</p>
+                        <p><strong>أفضل وقت السفر:</strong> مايو-سبتمبر</p>
+                        <p><strong>متوسط تكلفة الرحلة:</strong> $1500-2200</p>
+                        <p><strong>مدة الرحلة:</strong> 14-18 ساعة</p>
+                    </div>
+                    <a href="https://www.google.com/flights?q=anchorage&sort=price" target="_blank" class="btn-secondary">🔍 ابحث عن الرحلات</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="booking-section" id="booking-section">
+            <h2>احجزوا مغامرتكم</h2>
+            <form class="booking-form" id="bookingForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">الاسم الأول</label>
+                        <input type="text" id="firstName" name="firstName" required placeholder="اسمك الأول">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">اسم العائلة</label>
+                        <input type="text" id="lastName" name="lastName" required placeholder="اسم العائلة">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" name="email" required placeholder="بريدك@الإلكتروني.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+966 50 123 4567">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="serviceType">نوع الخدمة</label>
+                        <select id="serviceType" name="serviceType" required>
+                            <option value="">اختر الخدمة</option>
+                            <option value="guided-trip">رحلة جبلية مرشدة</option>
+                            <option value="equipment-rental">تأجير المعدات</option>
+                            <option value="personal-training">تدريب شخصي</option>
+                            <option value="consultation">استشارة</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="experienceLevel">مستوى الخبرة</label>
+                        <select id="experienceLevel" name="experienceLevel" required>
+                            <option value="">اختر المستوى</option>
+                            <option value="beginner">مبتدئ</option>
+                            <option value="intermediate">متوسط</option>
+                            <option value="advanced">متقدم</option>
+                            <option value="expert">خبير</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="preferredDate">التاريخ المفضل</label>
+                        <input type="date" id="preferredDate" name="preferredDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="groupSize">عدد الأشخاص</label>
+                        <select id="groupSize" name="groupSize" required>
+                            <option value="">اختر العدد</option>
+                            <option value="1">شخص واحد</option>
+                            <option value="2-5">2-5 أشخاص</option>
+                            <option value="6-10">6-10 أشخاص</option>
+                            <option value="10+">أكثر من 10 أشخاص</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="specialRequests">طلبات خاصة</label>
+                    <textarea id="specialRequests" name="specialRequests" placeholder="أخبرونا عن مستوى مهارتكم ومتطلباتكم الخاصة..."></textarea>
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit" class="btn-primary pulse-glow" id="submitBtn">
+                        <span id="btnText">إرسال طلب الحجز</span>
+                        <span class="loading" id="loadingSpinner" style="display: none;"></span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <div class="success-message" id="successMessage">
+        <h3>تم إرسال طلبكم بنجاح! 🎉</h3>
+        <p>شكراً لكم على اختيار TREP DAWOUD. سنتواصل معكم قريباً لتأكيد التفاصيل.</p>
+        <button onclick="closeSuccessMessage()" class="btn-primary" style="margin-top: 1rem;">موافق</button>
+    </div>
+
+    <script>
+        // Smooth scrolling to booking section
+        function scrollToBooking(serviceType) {
+            document.getElementById('serviceType').value = serviceType;
+            document.getElementById('booking-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Form submission handling
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            loadingSpinner.style.display = 'inline-block';
+
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                // Hide loading state
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                loadingSpinner.style.display = 'none';
+
+                // Show success message
+                document.getElementById('successMessage').classList.add('show');
+
+                // Reset form
+                this.reset();
+            }, 2000);
+        });
+
+        function closeSuccessMessage() {
+            document.getElementById('successMessage').classList.remove('show');
+        }
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all service cards
+        document.querySelectorAll('.service-card, .equipment-card, .flight-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Add hover effects for equipment cards
+        document.querySelectorAll('.equipment-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

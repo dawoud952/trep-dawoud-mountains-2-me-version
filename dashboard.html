@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - TREP DAWOUD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="nav-container">
+            <div class="logo">
+                <h2>TREP DAWOUD</h2>
+            </div>
+            <ul>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="mountains.html">الجبال</a></li>
+                <li><a href="blog.html">المدونة</a></li>
+                <li><a href="courses.html">الدورات</a></li>
+                <li><a href="services.html">الخدمات</a></li>
+                <li><a href="dashboard.html" class="active">لوحة التحكم</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/dawoud.jpg'); height: 30vh;">
+
+        <div class="hero-content">
+            <h1>لوحة التحكم الشخصية</h1>
+            <p>تابع رحلاتك وتقدمك في عالم التسلق</p>
+        </div>
+    </section>
+
+    <section class="mountains-section" style="padding-top: 4rem;">
+        <div class="mountains-container">
+            <div class="mountains-header">
+                <h2>مرحباً بك، <span id="userName">المستخدم</span>!</h2>
+                <div class="view-toggle">
+                    <button id="overviewView" class="active" onclick="setDashboardView('overview')">📊 نظرة عامة</button>
+                    <button id="tripsView" onclick="setDashboardView('trips')">🏔️ رحلاتي</button>
+                    <button id="progressView" onclick="setDashboardView('progress')">📈 تقدمي</button>
+                </div>
+            </div>
+
+            <!-- Overview Dashboard -->
+            <div id="overviewDashboard" class="dashboard-content">
+                <div class="stats" style="margin-bottom: 3rem;">
+                    <div class="stat-item">
+                        <h3 id="totalTrips">12</h3>
+                        <p>رحلة مكتملة</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="totalMountains">8</h3>
+                        <p>جبل تم تسلقه</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="totalHours">156</h3>
+                        <p>ساعة تسلق</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="achievementPoints">2450</h3>
+                        <p>نقطة إنجاز</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+                    <div class="dashboard-card">
+                        <h3>الرحلة القادمة</h3>
+                        <div id="nextTrip">
+                            <p><strong>جبل السودة</strong></p>
+                            <p>📅 15 فبراير 2024</p>
+                            <p>📍 منطقة عسير</p>
+                            <p>⏱️ 3 أيام</p>
+                            <button class="btn" style="margin-top: 1rem;">عرض التفاصيل</button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>إنجازاتي</h3>
+                        <div id="achievements">
+                            <div class="achievement-item" style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-size: 1.5rem; margin-left: 0.5rem;">🏆</span>
+                                <span>أول تسلق لجبل فوق 3000م</span>
+                            </div>
+                            <div class="achievement-item" style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-size: 1.5rem; margin-left: 0.5rem;">🎯</span>
+                                <span>إتمام 10 رحلات متتالية</span>
+                            </div>
+                            <div class="achievement-item" style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-size: 1.5rem; margin-left: 0.5rem;">🌟</span>
+                                <span>متسلق ماهر</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card" style="margin-bottom: 3rem;">
+                    <h3>نشاطي الأخير</h3>
+                    <div id="recentActivity">
+                        <div class="activity-item" style="padding: 1rem; border-bottom: 1px solid #eee;">
+                            <p><strong>تم إتمام رحلة جبل أجا</strong> - 2 فبراير 2024</p>
+                            <p>مدة الرحلة: 4 ساعات | ارتفاع: 2450م</p>
+                        </div>
+                        <div class="activity-item" style="padding: 1rem; border-bottom: 1px solid #eee;">
+                            <p><strong>انضمام لدورة السلامة المتقدمة</strong> - 28 يناير 2024</p>
+                            <p>تقدم: 75% مكتمل</p>
+                        </div>
+                        <div class="activity-item" style="padding: 1rem;">
+                            <p><strong>حجز معدات تسلق</strong> - 25 يناير 2024</p>
+                            <p>فترة الإيجار: 15-20 فبراير</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trips Dashboard -->
+            <div id="tripsDashboard" class="dashboard-content" style="display: none;">
+                <div class="mountains-header" style="margin-bottom: 2rem;">
+                    <h3>رحلاتي المكتملة والقادمة</h3>
+                </div>
+
+                <div id="tripsList">
+                    <!-- Trips will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Progress Dashboard -->
+            <div id="progressDashboard" class="dashboard-content" style="display: none;">
+                <div class="mountains-header" style="margin-bottom: 2rem;">
+                    <h3>تقدمي في الدورات والمهارات</h3>
+                </div>
+
+                <div id="progressList">
+                    <!-- Progress will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-mountains" style="background: var(--secondary);">
+        <h2 style="text-align: center; margin-bottom: 3rem; color: var(--black);">إحصائيات مفصلة</h2>
+        <div class="stats" style="max-width: 1200px; margin: 0 auto;">
+            <div class="stat-item">
+                <h3>85%</h3>
+                <p>متوسط إتمام الدورات</p>
+            </div>
+            <div class="stat-item">
+                <h3>4.8</h3>
+                <p>متوسط تقييم الرحلات</p>
+            </div>
+            <div class="stat-item">
+                <h3>92%</h3>
+                <p>رضا عن الخدمات</p>
+            </div>
+            <div class="stat-item">
+                <h3>15</h3>
+                <p>دورة مكتملة</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 TREP DAWOUD. جميع الحقوق محفوظة.</p>
+        <div style="margin-top: 1rem;">
+            <a href="#" style="color: white; margin: 0 1rem;">سياسة الخصوصية</a>
+            <a href="#" style="color: white; margin: 0 1rem;">الشروط والأحكام</a>
+            <a href="#" style="color: white; margin: 0 1rem;">اتصل بنا</a>
+        </div>
+    </footer>
+
+    <script>
+        // Sample user data
+        const userData = {
+            name: "أحمد محمد",
+            totalTrips: 12,
+            totalMountains: 8,
+            totalHours: 156,
+            achievementPoints: 2450,
+            nextTrip: {
+                mountain: "جبل السودة",
+                date: "2024-02-15",
+                location: "منطقة عسير",
+                duration: "3 أيام"
+            },
+            achievements: [
+                { icon: "🏆", title: "أول تسلق لجبل فوق 3000م", date: "2023-11-15" },
+                { icon: "🎯", title: "إتمام 10 رحلات متتالية", date: "2023-12-01" },
+                { icon: "🌟", title: "متسلق ماهر", date: "2024-01-10" }
+            ],
+            recentActivity: [
+                { type: "trip", title: "تم إتمام رحلة جبل أجا", date: "2024-02-02", details: "مدة الرحلة: 4 ساعات | ارتفاع: 2450م" },
+                { type: "course", title: "انضمام لدورة السلامة المتقدمة", date: "2024-01-28", details: "تقدم: 75% مكتمل" },
+                { type: "booking", title: "حجز معدات تسلق", date: "2024-01-25", details: "فترة الإيجار: 15-20 فبراير" }
+            ],
+            trips: [
+                {
+                    id: 1,
+                    mountain: "جبل أجا",
+                    date: "2024-02-02",
+                    status: "مكتملة",
+                    duration: "4 ساعات",
+                    elevation: 2450,
+                    difficulty: "متوسطة",
+                    rating: 5,
+                    notes: "رحلة رائعة مع إطلالة مذهلة على الوادي"
+                },
+                {
+                    id: 2,
+                    mountain: "جبل اللوز",
+                    date: "2024-01-20",
+                    status: "مكتملة",
+                    duration: "6 ساعات",
+                    elevation: 1850,
+                    difficulty: "سهلة",
+                    rating: 4,
+                    notes: "مناسبة للمبتدئين، مسارات واضحة"
+                },
+                {
+                    id: 3,
+                    mountain: "جبل السودة",
+                    date: "2024-02-15",
+                    status: "قادمة",
+                    duration: "3 أيام",
+                    elevation: 3013,
+                    difficulty: "متقدمة",
+                    rating: null,
+                    notes: "تحدي كبير، يتطلب تحضيراً جيداً"
+                }
+            ],
+            courses: [
+                {
+                    id: 1,
+                    title: "أساسيات التسلق",
+                    progress: 100,
+                    status: "مكتملة",
+                    completionDate: "2023-10-15",
+                    certificate: true,
+                    rating: 5
+                },
+                {
+                    id: 2,
+                    title: "السلامة المتقدمة",
+                    progress: 75,
+                    status: "قيد الدراسة",
+                    completionDate: null,
+                    certificate: false,
+                    rating: null
+                },
+                {
+                    id: 3,
+                    title: "التنقل في التضاريس",
+                    progress: 100,
+                    status: "مكتملة",
+                    completionDate: "2023-11-20",
+                    certificate: true,
+                    rating: 4
+                }
+            ]
+        };
+
+        // Load dashboard on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            loadOverview();
+        });
+
+        function loadUserData() {
+            document.getElementById('userName').textContent = userData.name;
+            document.getElementById('totalTrips').textContent = userData.totalTrips;
+            document.getElementById('totalMountains').textContent = userData.totalMountains;
+            document.getElementById('totalHours').textContent = userData.totalHours;
+            document.getElementById('achievementPoints').textContent = userData.achievementPoints;
+        }
+
+        function loadOverview() {
+            // Load next trip
+            const nextTrip = document.getElementById('nextTrip');
+            nextTrip.innerHTML = `
+                <p><strong>${userData.nextTrip.mountain}</strong></p>
+                <p>📅 ${formatDate(userData.nextTrip.date)}</p>
+                <p>📍 ${userData.nextTrip.location}</p>
+                <p>⏱️ ${userData.nextTrip.duration}</p>
+                <button class="btn" style="margin-top: 1rem;">عرض التفاصيل</button>
+            `;
+
+            // Load achievements
+            const achievements = document.getElementById('achievements');
+            achievements.innerHTML = userData.achievements.map(achievement => `
+                <div class="achievement-item" style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="font-size: 1.5rem; margin-left: 0.5rem;">${achievement.icon}</span>
+                    <span>${achievement.title}</span>
+                </div>
+            `).join('');
+
+            // Load recent activity
+            const recentActivity = document.getElementById('recentActivity');
+            recentActivity.innerHTML = userData.recentActivity.map(activity => `
+                <div class="activity-item" style="padding: 1rem; border-bottom: 1px solid #eee;">
+                    <p><strong>${activity.title}</strong> - ${formatDate(activity.date)}</p>
+                    <p>${activity.details}</p>
+                </div>
+            `).join('');
+        }
+
+        function loadTrips() {
+            const tripsList = document.getElementById('tripsList');
+            tripsList.innerHTML = '';
+
+            userData.trips.forEach(trip => {
+                const tripElement = document.createElement('div');
+                tripElement.className = 'dashboard-card';
+                tripElement.style.marginBottom = '1rem';
+                tripElement.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div>
+                            <h4>${trip.mountain}</h4>
+                            <p>📅 ${formatDate(trip.date)}</p>
+                            <p>⏱️ ${trip.duration} | 🏔️ ${trip.elevation}م</p>
+                            <p>📊 ${trip.difficulty}</p>
+                            ${trip.rating ? `<p>⭐ ${trip.rating}/5</p>` : ''}
+                        </div>
+                        <div style="text-align: left;">
+                            <span class="difficulty ${trip.status === 'مكتملة' ? 'expert' : 'intermediate'}" style="padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
+                                ${trip.status}
+                            </span>
+                        </div>
+                    </div>
+                    ${trip.notes ? `<p style="margin-top: 1rem; color: #666;">${trip.notes}</p>` : ''}
+                    <div class="mountain-actions" style="margin-top: 1rem;">
+                        <button class="btn" onclick="viewTripDetails(${trip.id})">عرض التفاصيل</button>
+                        ${trip.status === 'قادمة' ? '<button class="btn" onclick="editTrip(' + trip.id + ')">تعديل</button>' : ''}
+                    </div>
+                `;
+                tripsList.appendChild(tripElement);
+            });
+        }
+
+        function loadProgress() {
+            const progressList = document.getElementById('progressList');
+            progressList.innerHTML = '';
+
+            userData.courses.forEach(course => {
+                const progressElement = document.createElement('div');
+                progressElement.className = 'dashboard-card';
+                progressElement.style.marginBottom = '1rem';
+                progressElement.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: start;">
+                        <div style="flex: 1;">
+                            <h4>${course.title}</h4>
+                            <div style="margin: 1rem 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>التقدم</span>
+                                    <span>${course.progress}%</span>
+                                </div>
+                                <div style="width: 100%; height: 10px; background: #eee; border-radius: 5px;">
+                                    <div style="width: ${course.progress}%; height: 100%; background: var(--primary); border-radius: 5px; transition: width 0.3s ease;"></div>
+                                </div>
+                            </div>
+                            ${course.completionDate ? `<p>✅ مكتمل في ${formatDate(course.completionDate)}</p>` : '<p>📚 قيد الدراسة</p>'}
+                            ${course.rating ? `<p>⭐ ${course.rating}/5</p>` : ''}
+                        </div>
+                        <div style="text-align: left;">
+                            <span class="difficulty ${course.status === 'مكتملة' ? 'expert' : 'intermediate'}" style="padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
+                                ${course.status}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mountain-actions" style="margin-top: 1rem;">
+                        ${course.status === 'مكتملة' && course.certificate ? '<button class="btn" onclick="downloadCertificate(' + course.id + ')">تحميل الشهادة</button>' : ''}
+                        ${course.status === 'قيد الدراسة' ? '<button class="btn" onclick="continueCourse(' + course.id + ')">متابعة الدورة</button>' : ''}
+                        <button class="btn" onclick="viewCourseDetails(${course.id})">عرض التفاصيل</button>
+                    </div>
+                `;
+                progressList.appendChild(progressElement);
+            });
+        }
+
+        function setDashboardView(viewType) {
+            const overviewView = document.getElementById('overviewView');
+            const tripsView = document.getElementById('tripsView');
+            const progressView = document.getElementById('progressView');
+
+            const overviewDashboard = document.getElementById('overviewDashboard');
+            const tripsDashboard = document.getElementById('tripsDashboard');
+            const progressDashboard = document.getElementById('progressDashboard');
+
+            // Reset all buttons
+            overviewView.classList.remove('active');
+            tripsView.classList.remove('active');
+            progressView.classList.remove('active');
+
+            // Hide all dashboards
+            overviewDashboard.style.display = 'none';
+            tripsDashboard.style.display = 'none';
+            progressDashboard.style.display = 'none';
+
+            // Show selected view
+            if (viewType === 'overview') {
+                overviewView.classList.add('active');
+                overviewDashboard.style.display = 'block';
+            } else if (viewType === 'trips') {
+                tripsView.classList.add('active');
+                tripsDashboard.style.display = 'block';
+                loadTrips();
+            } else if (viewType === 'progress') {
+                progressView.classList.add('active');
+                progressDashboard.style.display = 'block';
+                loadProgress();
+            }
+        }
+
+        function viewTripDetails(tripId) {
+            const trip = userData.trips.find(t => t.id === tripId);
+            if (trip) {
+                alert(`تفاصيل الرحلة: ${trip.mountain}\nالتاريخ: ${formatDate(trip.date)}\nالمدة: ${trip.duration}\nالارتفاع: ${trip.elevation}م\nالصعوبة: ${trip.difficulty}\n${trip.notes ? 'ملاحظات: ' + trip.notes : ''}`);
+            }
+        }
+
+        function editTrip(tripId) {
+            alert('فتح صفحة تعديل الرحلة...');
+        }
+
+        function downloadCertificate(courseId) {
+            const course = userData.courses.find(c => c.id === courseId);
+            if (course) {
+                alert(`تحميل شهادة دورة "${course.title}"`);
+                // Here you would trigger certificate download
+            }
+        }
+
+        function continueCourse(courseId) {
+            const course = userData.courses.find(c => c.id === courseId);
+            if (course) {
+                alert(`متابعة دورة "${course.title}"`);
+                // Here you would redirect to course page
+            }
+        }
+
+        function viewCourseDetails(courseId) {
+            const course = userData.courses.find(c => c.id === courseId);
+            if (course) {
+                alert(`تفاصيل الدورة: ${course.title}\nالتقدم: ${course.progress}%\nالحالة: ${course.status}\n${course.completionDate ? 'تاريخ الإتمام: ' + formatDate(course.completionDate) : ''}`);
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ar-SA');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أسئلة عن الجبال - موقع الجبال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2d5016;
+            --secondary: #8fbc8f;
+            --carousel-radius: 500px;
+            --bg-dark: #0f1a0f;
+            --text-light: #f0f8ff;
+            --mountain-dark: #2f4f4f;
+            --mountain-light: #708090;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a2f1a 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* العنوان الرئيسي */
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(45, 80, 22, 0.5);
+            animation: pulse 3s infinite alternate;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        /* قسم الكاروسيل */
+        .carousel-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .carousel {
+            position: relative;
+            width: var(--carousel-radius);
+            height: var(--carousel-radius);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            margin: 2rem 0;
+        }
+
+        .carousel-item {
+            position: absolute;
+            width: 200px;
+            height: 250px;
+            background: linear-gradient(135deg, var(--mountain-dark) 0%, var(--mountain-light) 100%);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .carousel-item::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.3));
+            z-index: 1;
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(143, 188, 143, 0.4);
+        }
+
+        .carousel-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            z-index: 2;
+        }
+
+        .carousel-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            z-index: 2;
+        }
+
+        .carousel-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            z-index: 2;
+        }
+
+        /* قسم الأسئلة */
+        .questions-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(143, 188, 143, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .question-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+
+        .question-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .question-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .question-difficulty {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .difficulty-easy {
+            background: rgba(0, 255, 0, 0.2);
+            color: #90ee90;
+        }
+
+        .difficulty-medium {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+        }
+
+        .difficulty-hard {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff7f7f;
+        }
+
+        .question-description {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .question-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(45, 80, 22, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(143, 188, 143, 0.3);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(143, 188, 143, 0.3);
+        }
+
+        .mountain-background {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(transparent, var(--mountain-dark));
+            z-index: -1;
+        }
+
+        .mountain-range {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--mountain-light);
+            clip-path: polygon(0% 100%, 5% 70%, 10% 80%, 15% 60%, 20% 90%, 25% 65%, 30% 75%, 35% 50%, 40% 70%, 45% 40%, 50% 60%, 55% 30%, 60% 50%, 65% 20%, 70% 40%, 75% 10%, 80% 30%, 85% 5%, 90% 20%, 95% 0%, 100% 15%, 100% 100%);
+        }
+
+        /* التكيف مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .carousel {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .carousel-item {
+                width: 150px;
+                height: 180px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header style="background: #2F4F4F; color: white; padding: 1rem; position: fixed; width: 100%; z-index: 1000;">
+        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <h2 style="color: #2E8B57;">TREP DAWOUD</h2>
+            </div>
+            <ul style="list-style: none; display: flex; gap: 2rem;">
+                <li><a href="index.html" style="color: white; text-decoration: none;">الرئيسية</a></li>
+                <li><a href="mountains.html" style="color: white; text-decoration: none;">الجبال</a></li>
+                <li><a href="blog.html" style="color: white; text-decoration: none;">المدونة</a></li>
+                <li><a href="courses.html" style="color: white; text-decoration: none;">الدورات</a></li>
+                <li><a href="services.html" style="color: white; text-decoration: none;">الخدمات</a></li>
+                <li><a href="question.html" style="color: white; text-decoration: none;">الأسئلة</a></li>
+                <li><a href="login.html" style="color: white; text-decoration: none;">تسجيل الدخول</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="mountain-background">
+        <div class="mountain-range"></div>
+    </div>
+
+    <div class="container" style="padding-top: 5rem;">
+        <h1 class="title"><i class="fas fa-mountain"></i> أسئلة عن الجبال</h1>
+        <p class="subtitle">
+            اختبر معلوماتك واستكشف عالم الجبال والسلاسل الجبلية
+        </p>
+
+        <!-- قسم الكاروسيل -->
+        <section class="carousel-section">
+            <div class="carousel" id="mountainCarousel">
+                <!-- سيتم إضافة العناصر عبر الجافاسكريبت -->
+            </div>
+        </section>
+
+        <!-- قسم الأسئلة -->
+        <section class="questions-section">
+            <h2 class="section-title"><i class="fas fa-question-circle"></i> أسئلة وتحديات جبلية</h2>
+            <div id="questionsContainer">
+                <!-- سيتم إضافة الأسئلة عبر الجافاسكريبت -->
+            </div>
+            
+            <div class="controls">
+                <button class="btn" id="addQuestionBtn">
+                    <i class="fas fa-plus"></i> إضافة سؤال جديد
+                </button>
+                <button class="btn" id="exploreMoreBtn">
+                    <i class="fas fa-hiking"></i> العودة للرئيسية
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // بيانات الكاروسيل - سلاسل جبلية شهيرة
+        const carouselItems = [
+            { icon: "🏔️", title: "جبال الهيمالايا", desc: "أعلى سلسلة جبلية في العالم" },
+            { icon: "⛰️", title: "جبال الألب", desc: "سلسلة جبال في أوروبا الوسطى" },
+            { icon: "🗻", title: "جبال الأنديز", desc: "أطول سلسلة جبال في العالم" },
+            { icon: "🏞️", title: "جبال روكي", desc: "سلسلة جبال في أمريكا الشمالية" },
+            { icon: "🌄", title: "جبال الأطلس", desc: "سلسلة جبال في شمال أفريقيا" },
+            { icon: "🏕️", title: "جبال القوقاز", desc: "حدود طبيعية بين أوروبا وآسيا" }
+        ];
+
+        // بيانات الأسئلة حول الجبال
+        const questions = [
+            {
+                title: "ما هي أعلى قمة جبلية في العالم؟",
+                difficulty: "easy",
+                description: "تعرف على أعلى قمة جبلية في العالم وموقعها الجغرافي وارتفاعها.",
+                tags: ["ارتفاعات", "قمة", "هيمالايا"]
+            },
+            {
+                title: "كيف تتشكل السلاسل الجبلية؟",
+                difficulty: "medium",
+                description: "اشرح العمليات الجيولوجية التي تؤدي إلى تشكل السلاسل الجبلية.",
+                tags: ["جيولوجيا", "تكتونية", "تشكل الجبال"]
+            },
+            {
+                title: "ما تأثير الجبال على المناخ؟",
+                difficulty: "medium",
+                description: "ناقش كيف تؤثر الجبال على أنماط الطقس والمناخ في المناطق المحيطة بها.",
+                tags: ["مناخ", "تأثير", "أنماط الطقس"]
+            },
+            {
+                title: "ما هي التحديات البيئية التي تواجه الجبال؟",
+                difficulty: "hard",
+                description: "حدد التهديدات البيئية الرئيسية للأنظمة الجبلية والحلول الممكنة.",
+                tags: ["بيئة", "تحديات", "حلول مستدامة"]
+            },
+            {
+                title: "كيف تؤثر الجبال على التنوع البيولوجي؟",
+                difficulty: "medium",
+                description: "استكشف كيف تدعم الجبال تنوعًا بيولوجيًا فريدًا ومميزًا.",
+                tags: ["تنوع بيولوجي", "نظم إيكولوجية", "حياة برية"]
+            },
+            {
+                title: "ما هي أطول سلسلة جبلية تحت الماء؟",
+                difficulty: "hard",
+                description: "اكتشف السلاسل الجبلية المخفية تحت سطح المحيطات وتأثيرها.",
+                tags: ["جبال تحت الماء", "محيطات", "تضاريس"]
+            }
+        ];
+
+        // تهيئة الكاروسيل
+        function initCarousel() {
+            const carousel = document.getElementById('mountainCarousel');
+            const radius = 250;
+            const totalItems = carouselItems.length;
+            const angle = 360 / totalItems;
+
+            carouselItems.forEach((item, index) => {
+                const carouselItem = document.createElement('div');
+                carouselItem.className = 'carousel-item';
+                
+                const yRotation = angle * index;
+                const xTranslation = radius;
+                const zTranslation = 0;
+
+                carouselItem.style.transform = `rotateY(${yRotation}deg) translateZ(${xTranslation}px)`;
+                
+                carouselItem.innerHTML = `
+                    <div class="carousel-icon">${item.icon}</div>
+                    <div class="carousel-title">${item.title}</div>
+                    <div class="carousel-desc">${item.desc}</div>
+                `;
+                
+                carousel.appendChild(carouselItem);
+            });
+
+            // تدوير الكاروسيل تلقائياً
+            let currentRotation = 0;
+            setInterval(() => {
+                currentRotation += 0.2;
+                carousel.style.transform = `rotateY(${currentRotation}deg)`;
+            }, 50);
+        }
+
+        // تهيئة الأسئلة
+        function initQuestions() {
+            const container = document.getElementById('questionsContainer');
+            
+            questions.forEach(question => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                
+                questionCard.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-title">${question.title}</div>
+                        <div class="question-difficulty difficulty-${question.difficulty}">
+                            ${question.difficulty === 'easy' ? 'سهل' :
+                              question.difficulty === 'medium' ? 'متوسط' : 'صعب'}
+                        </div>
+                    </div>
+                    <div class="question-description">${question.description}</div>
+                    <div class="question-tags">
+                        ${question.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(questionCard);
+            });
+        }
+
+        // إضافة تفاعلية للأزرار
+        function setupInteractions() {
+            document.getElementById('addQuestionBtn').addEventListener('click', function() {
+                alert('سيتم فتح نموذج لإضافة سؤال جديد حول الجبال!');
+                // يمكنك هنا إضافة منطق لإدخال سؤال جديد
+            });
+            
+            document.getElementById('exploreMoreBtn').addEventListener('click', function() {
+                // الانتقال للصفحة الرئيسية
+                window.location.href = 'index.html';
+            });
+            
+            // إضافة تفاعل للنقر على بطاقات الكاروسيل
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            carouselItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const title = this.querySelector('.carousel-title').textContent;
+                    alert(`أنت تختار استكشاف: ${title}`);
+                });
+            });
+        }
+
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            initCarousel();
+            initQuestions();
+            setupInteractions();
+        });
+
+        // بديل إذا لم تعمل الأحداث السابقة
+        window.onload = function() {
+            initCarousel();
+            initQuestions();
+            setupInteractions();
+        };
+    </script>
+</body>
+</html>
